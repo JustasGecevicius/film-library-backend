@@ -22,7 +22,6 @@ class MoviesController extends Controller
      */
     public function create()
     {
-        //
     }
 
     /**
@@ -30,7 +29,7 @@ class MoviesController extends Controller
      */
     public function store(StoreMoviesRequest $request)
     {
-        //
+        return Movies::create($request->all());
     }
 
     /**
@@ -46,22 +45,31 @@ class MoviesController extends Controller
      */
     public function edit(Movies $movies)
     {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMoviesRequest $request, Movies $movies)
+    public function update(UpdateMoviesRequest $request, $movies)
     {
-        //
+        $movie = Movies::find($movies);
+        $movie->update($request->all());
+        return $movie;
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Movies $movies)
+    public function destroy(string $movies)
     {
-        //
+        Movies::destroy($movies);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function search(string $title)
+    {
+        Movies::where('title', 'like', '%' . $title . '%')->get();
     }
 }

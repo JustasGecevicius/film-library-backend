@@ -9,6 +9,12 @@ class Movies extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'release_date',
+        'poster_path'
+    ];
+
     public function likedMovies()
     {
         return $this->belongsToMany(LikedMovies::class);

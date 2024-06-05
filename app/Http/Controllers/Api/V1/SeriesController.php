@@ -14,7 +14,7 @@ class SeriesController extends Controller
      */
     public function index()
     {
-        //
+        Series::all();
     }
 
     /**
@@ -30,7 +30,7 @@ class SeriesController extends Controller
      */
     public function store(StoreSeriesRequest $request)
     {
-        //
+        return Series::create($request->all());
     }
 
     /**
@@ -52,9 +52,11 @@ class SeriesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateSeriesRequest $request, Series $series)
+    public function update(UpdateSeriesRequest $request, string $series)
     {
-        //
+        $series = Series::find($series);
+        $series->update($request->all());
+        return $series;
     }
 
     /**
@@ -62,6 +64,11 @@ class SeriesController extends Controller
      */
     public function destroy(Series $series)
     {
-        //
+        Series::destroy($series);
+    }
+
+    public function search(string $title)
+    {
+        Series::where('title', 'like', '%' . $title . '%')->get();
     }
 }
